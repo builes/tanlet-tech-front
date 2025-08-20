@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
+// Importamos el calendario
+import { CalendarioReservas } from "../components/CalendarioReservas";
+
 export const ServicioDetalle = () => {
   const { id } = useParams();
   const [servicio, setServicio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fechaSeleccionada, setFechaSeleccionada] = useState("");
 
   useEffect(() => {
     const fetchServicio = async () => {
@@ -38,7 +42,7 @@ export const ServicioDetalle = () => {
         ⬅ Volver
       </Link>
 
-      <div className="card shadow">
+      <div className="card shadow mb-4">
         {servicio.imagen_url && (
           <img
             src={servicio.imagen_url}
@@ -64,6 +68,27 @@ export const ServicioDetalle = () => {
           </p>
         </div>
       </div>
+
+      {/* Selección de fecha */}
+      <div className="mb-3">
+        <label className="form-label">Selecciona una fecha</label>
+        <input
+          type="date"
+          className="form-control"
+          value={fechaSeleccionada}
+          min={new Date().toISOString().split("T")[0]} // 🚀 evita fechas anteriores a hoy
+          onChange={(e) => setFechaSeleccionada(e.target.value)}
+        />
+      </div>
+
+      {/* Calendario de reservas */}
+      {fechaSeleccionada && (
+        <CalendarioReservas
+          idPrestador={servicio.id_usuario} // prestador dueño del servicio
+          idServicio={servicio.id_servicio}
+          fecha={fechaSeleccionada}
+        />
+      )}
     </div>
   );
 };
