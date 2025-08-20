@@ -14,7 +14,9 @@ export const ServicioDetalle = () => {
   useEffect(() => {
     const fetchServicio = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/servicios/${id}`);
+        const res = await fetch(
+          `http://ec2-3-85-50-12.compute-1.amazonaws.com:3000/api/servicios/${id}`
+        );
         if (!res.ok) throw new Error("Error al obtener servicio");
 
         const data = await res.json();

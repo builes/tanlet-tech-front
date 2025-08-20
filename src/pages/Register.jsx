@@ -24,7 +24,7 @@ export const Register = () => {
 
     try {
       const res = await fetch(
-        "http://ec2-3-85-50-12.compute-1.amazonaws.com/api/auth/register",
+        "http://ec2-3-85-50-12.compute-1.amazonaws.com:3000/api/auth/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

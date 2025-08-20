@@ -25,7 +25,7 @@ export const CalendarioReservas = ({ idPrestador, idServicio, fecha }) => {
     const fetchReservas = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/reservas/${idPrestador}?fecha=${fecha}`
+          `http://ec2-3-85-50-12.compute-1.amazonaws.com:3000/${idPrestador}?fecha=${fecha}`
         );
         const data = await res.json();
         if (data.ok) {
@@ -42,18 +42,21 @@ export const CalendarioReservas = ({ idPrestador, idServicio, fecha }) => {
 
   const handleReservar = async (hora) => {
     try {
-      const res = await fetch("http://localhost:3000/api/reservas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id_prestador: idPrestador,
-          id_usuario_cliente: idUsuarioLogueado,
-          id_servicio: idServicio,
-          fecha_reserva: fecha,
-          hora_inicio: hora,
-          hora_fin: sumarMediaHora(hora),
-        }),
-      });
+      const res = await fetch(
+        "http://ec2-3-85-50-12.compute-1.amazonaws.com:3000/api/reservas",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id_prestador: idPrestador,
+            id_usuario_cliente: idUsuarioLogueado,
+            id_servicio: idServicio,
+            fecha_reserva: fecha,
+            hora_inicio: hora,
+            hora_fin: sumarMediaHora(hora),
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -79,7 +82,7 @@ export const CalendarioReservas = ({ idPrestador, idServicio, fecha }) => {
   const handleCancelar = async (idReserva, hora) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/reservas/${idReserva}`,
+        `http://ec2-3-85-50-12.compute-1.amazonaws.com:3000/api/reservas/${idReserva}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

@@ -20,11 +20,14 @@ export const Login = () => {
     setMensaje(null);
 
     try {
-      const res = await fetch("http://localhost:3000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        "http://ec2-3-85-50-12.compute-1.amazonaws.com:3000/api/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
